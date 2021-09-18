@@ -1,25 +1,21 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using AutoMapper;
+using BurgerRaterApi.Data;
+using BurgerRaterApi.Infrastructure.ActionFilters;
+using BurgerRaterApi.Mappers;
+using BurgerRaterApi.Repositories;
+using BurgerRaterApi.Repositories.Interfaces;
+using BurgerRaterApi.Services;
+using BurgerRaterApi.Services.Interfaces;
+using FluentValidation.AspNetCore;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.Identity.Web;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
+using Microsoft.Identity.Web;
 using Microsoft.OpenApi.Models;
-using BurgerRaterApi.Data;
-using Microsoft.EntityFrameworkCore;
-using BurgerRaterApi.Repositories.Interfaces;
-using BurgerRaterApi.Repositories;
-using BurgerRaterApi.Services.Interfaces;
-using BurgerRaterApi.Services;
 
 namespace BurgerRaterApi
 {
@@ -39,6 +35,7 @@ namespace BurgerRaterApi
                 .AddMicrosoftIdentityWebApi(Configuration.GetSection("AzureAdB2C"));
 
             services.AddControllers();
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "BurgerRaterApi", Version = "v1" });
@@ -49,8 +46,23 @@ namespace BurgerRaterApi
                 options.UseSqlServer(Configuration.GetConnectionString("BurgerRaterContext"));
             });
 
+            services.AddMvc(opt =>
+            {
+                opt.Filters.Add(typeof(ValidationActionFilter));
+            }).AddFluentValidation(fvc => fvc.RegisterValidatorsFromAssemblyContaining<Startup>());
+
+            var mappingConfig = new MapperConfiguration(mc => {
+                mc.AddProfile(new ReviewAutoMapperProfile());
+                mc.AddProfile(new RestaurantAutoMapperProfile());
+                mc.AddProfile(new MenuAutoMapperProfile());
+                mc.AddProfile(new BurgerAutoMapperProfile());
+            });
+            IMapper mapper = mappingConfig.CreateMapper();
+            services.AddSingleton(mapper);
+
             services.AddScoped(typeof(IBaseRepository<>), typeof(BaseRepository<>));
             services.AddScoped(typeof(IRestaurantService), typeof(RestaurantService));
+            services.AddScoped(typeof(IReviewService), typeof(ReviewService));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

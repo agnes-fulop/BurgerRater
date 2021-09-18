@@ -20,10 +20,10 @@ namespace BurgerRaterApi.Repositories
         }
         public async Task<T> Create(T entity)
         {
-            _entities.Add(entity);
+            var createdEntity = _entities.Add(entity);
             await _context.SaveChangesAsync();
 
-            return entity;
+            return createdEntity.Entity;
         }
 
         public async Task Delete(T entity)

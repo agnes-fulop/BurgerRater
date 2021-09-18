@@ -1,9 +1,5 @@
 ﻿using BurgerRaterApi.Models;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace BurgerRaterApi.Data
 {
@@ -17,5 +13,11 @@ namespace BurgerRaterApi.Data
         }
 
         public DbSet<Restaurant> Restaurants { get; set; }
+
+        public DbSet<Review> Reviews { get; set; }
+
+        public DbSet<Burger> Burgers { get; set; }
+
+        public DbSet<Menu> Menus { get; set; }
     }
 }

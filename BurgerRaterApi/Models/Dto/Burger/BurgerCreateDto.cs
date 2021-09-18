@@ -1,9 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
-
-namespace BurgerRaterApi.Models
+﻿namespace BurgerRaterApi.Models.Dto.Burger
 {
-    [Table("Burger")]
-    public class Burger : BaseEntity
+    public class BurgerCreateDto
     {
         public string Name { get; set; }
 
@@ -13,9 +10,6 @@ namespace BurgerRaterApi.Models
 
         public string Currency { get; set; }
 
-        [ForeignKey("Menu")]
         public int MenuId { get; set; }
-
-        public virtual Menu Menu { get; set; }
     }
 }
