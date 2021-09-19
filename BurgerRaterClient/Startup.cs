@@ -13,6 +13,8 @@ using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using BurgerRaterClient.Services;
+using BurgerRaterClient.Services.Interfaces;
 
 namespace BurgerRaterClient
 {
@@ -28,8 +30,17 @@ namespace BurgerRaterClient
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddAuthentication(OpenIdConnectDefaults.AuthenticationScheme)
-                .AddMicrosoftIdentityWebApp(Configuration.GetSection("AzureAdB2C"));
+            //services.AddAuthentication(OpenIdConnectDefaults.AuthenticationScheme)
+            //    .AddMicrosoftIdentityWebApp(Configuration.GetSection("AzureAdB2C"));
+
+            services.AddScoped<IRestaurantService, RestaurantService>();
+            services.AddHttpClient<IRestaurantService, RestaurantService>();
+
+            services.AddMicrosoftIdentityWebAppAuthentication(Configuration, "AzureAdB2C")
+              .EnableTokenAcquisitionToCallDownstreamApi(new string[] { Configuration["AzureAdB2C:Scope"] })
+              .AddInMemoryTokenCaches();
+
+            //services.AddInMemoryTokenCaches();
             services.AddRazorPages()
                 .AddMicrosoftIdentityUI();
         }

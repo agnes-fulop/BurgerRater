@@ -1,0 +1,24 @@
+﻿@page
+@model BurgerRaterClient.Pages.RestaurantsModel
+@{
+    ViewData["Title"] = "Restaurants";
+}
+<h1>@ViewData["Title"]</h1>
+
+<p>Restaurants will be displayed here.</p>
+
+@foreach (var item in Model.restaurants)
+{
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Name)<br />
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Address)<br />
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.OpeningTime)<br />
+        </td>
+
+    </tr>
+}

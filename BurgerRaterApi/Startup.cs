@@ -38,8 +38,16 @@ namespace BurgerRaterApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            //services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+            //    .AddMicrosoftIdentityWebApi(Configuration.GetSection("AzureAdB2C"));
+
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-                .AddMicrosoftIdentityWebApi(Configuration.GetSection("AzureAdB2C"));
+               .AddMicrosoftIdentityWebApi(options =>
+               {
+                   Configuration.Bind("AzureAdB2C", options);
+
+                   options.TokenValidationParameters.NameClaimType = "name";
+               },options => { Configuration.Bind("AzureAdB2C", options); });
 
             services.AddControllers();
 
