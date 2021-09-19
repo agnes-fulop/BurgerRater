@@ -17,10 +17,5 @@ namespace BurgerRaterApi.Data
         public DbSet<Review> Reviews { get; set; }
 
         public DbSet<Burger> Burgers { get; set; }
-
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-
-        }
     }
 }
