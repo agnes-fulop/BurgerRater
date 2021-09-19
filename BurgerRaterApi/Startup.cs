@@ -1,21 +1,28 @@
 using AutoMapper;
 using BurgerRaterApi.Data;
 using BurgerRaterApi.Infrastructure.ActionFilters;
+using BurgerRaterApi.Infrastructure.Exceptions;
+using BurgerRaterApi.Infrastructure.Middlewares;
 using BurgerRaterApi.Mappers;
 using BurgerRaterApi.Repositories;
 using BurgerRaterApi.Repositories.Interfaces;
 using BurgerRaterApi.Services;
 using BurgerRaterApi.Services.Interfaces;
 using FluentValidation.AspNetCore;
+using Hellang.Middleware.ProblemDetails;
+using Hellang.Middleware.ProblemDetails.Mvc;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Identity.Web;
 using Microsoft.OpenApi.Models;
+using System;
+using System.Net.Http;
 
 namespace BurgerRaterApi
 {
@@ -59,6 +66,12 @@ namespace BurgerRaterApi
             IMapper mapper = mappingConfig.CreateMapper();
             services.AddSingleton(mapper);
 
+            services.AddProblemDetails(ConfigureProblemDetails)
+                .AddControllers()
+                    // Adds MVC conventions to work better with the ProblemDetails middleware.
+                    .AddProblemDetailsConventions()
+                .AddJsonOptions(x => x.JsonSerializerOptions.IgnoreNullValues = true);
+
             services.AddScoped(typeof(IRestaurantRepository), typeof(RestaurantRepository));
             services.AddScoped(typeof(IReviewRepository), typeof(ReviewRepository));
             services.AddScoped(typeof(IBurgerRepository), typeof(BurgerRepository));
@@ -84,10 +97,22 @@ namespace BurgerRaterApi
             app.UseAuthentication();
             app.UseAuthorization();
 
+            app.UseProblemDetails();
+
+            app.UseMiddleware<ErrorHandlerMiddleware>();
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
             });
+        }
+
+        private void ConfigureProblemDetails(ProblemDetailsOptions options)
+        {
+            options.ValidationProblemStatusCode = StatusCodes.Status400BadRequest;
+            options.MapToStatusCode<NotFoundException>(StatusCodes.Status404NotFound);
+            options.MapToStatusCode<HttpRequestException>(StatusCodes.Status503ServiceUnavailable);
+            options.MapToStatusCode<Exception>(StatusCodes.Status500InternalServerError);
         }
     }
 }

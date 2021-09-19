@@ -55,7 +55,7 @@ namespace BurgerRaterApi.Repositories
 
             if (entity is null)
             {
-                throw new NotFoundException();
+                throw new NotFoundException("Entity doesn't exist.");
             }
 
             return entity;
