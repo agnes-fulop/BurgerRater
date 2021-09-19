@@ -61,8 +61,10 @@ namespace BurgerRaterApi
 
             services.AddScoped(typeof(IRestaurantRepository), typeof(RestaurantRepository));
             services.AddScoped(typeof(IReviewRepository), typeof(ReviewRepository));
+            services.AddScoped(typeof(IBurgerRepository), typeof(BurgerRepository));
             services.AddScoped(typeof(IRestaurantService), typeof(RestaurantService));
             services.AddScoped(typeof(IReviewService), typeof(ReviewService));
+            services.AddScoped(typeof(IBurgerService), typeof(BurgerService));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -7,15 +7,15 @@ using System.Threading.Tasks;
 
 namespace BurgerRaterApi.Repositories
 {
-    public class ReviewRepository : BaseRepository<Review>, IReviewRepository
+    public class BurgerRepository : BaseRepository<Burger>, IBurgerRepository
     {
-        public ReviewRepository(ApplicationDbContext context) : base(context)
+        public BurgerRepository(ApplicationDbContext context) : base(context)
         {
         }
 
-        public new async Task<IEnumerable<Review>> GetAll()
+        public new async Task<IEnumerable<Burger>> GetAll()
         {
-            return await _context.Reviews.Include(b => b.Restaurant).ToListAsync();
+            return await _context.Burgers.Include(b => b.Restaurant).ToListAsync();
         }
     }
 }

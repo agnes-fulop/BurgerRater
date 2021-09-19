@@ -11,9 +11,20 @@ namespace BurgerRaterApi.Repositories
         {
         }
 
+        public async Task<Burger> AddBurgerForRestaurant(int restaurantId, Burger burger)
+        {
+            var restaurant = await GetById(restaurantId);
+
+            restaurant?.Burgers.Add(burger);
+
+            await _context.SaveChangesAsync();
+
+            return burger;
+        }
+
         public async Task<Review> AddReviewForRestaurant(int restaurantId, Review review)
         {
-            var restaurant = await _context.Restaurants.FindAsync(restaurantId);
+            var restaurant = await GetById(restaurantId);
 
             restaurant?.Reviews.Add(review);
 
