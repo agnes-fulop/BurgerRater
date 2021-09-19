@@ -1,6 +1,7 @@
 ﻿using BurgerRaterApi.Models;
 using BurgerRaterApi.Repositories.Interfaces;
 using BurgerRaterApi.Services.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -25,12 +26,12 @@ namespace BurgerRaterApi.Services
             await _restaurantRepository.Delete(restaurant);
         }
 
-        public async Task Delete(int id)
+        public async Task Delete(Guid id)
         {
             await _restaurantRepository.Delete(id);
         }
 
-        public async Task<bool> Exists(int id)
+        public async Task<bool> Exists(Guid id)
         {
             return await _restaurantRepository.Exists(id);
         }
@@ -40,7 +41,7 @@ namespace BurgerRaterApi.Services
             return await _restaurantRepository.GetAll();
         }
 
-        public async Task<Restaurant> GetById(int id)
+        public async Task<Restaurant> GetById(Guid id)
         {
             return await _restaurantRepository.GetById(id);
         }

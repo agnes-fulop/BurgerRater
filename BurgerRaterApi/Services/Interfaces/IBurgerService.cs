@@ -1,4 +1,5 @@
 ﻿using BurgerRaterApi.Models;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -6,8 +7,8 @@ namespace BurgerRaterApi.Services.Interfaces
 {
     public interface IBurgerService
     {
-        public Task<IEnumerable<Burger>> GetAllBurgersForRestaurant(int restaurantId);
+        public Task<IEnumerable<Burger>> GetAllBurgersForRestaurant(Guid restaurantId);
 
-        public Task<Burger> AddBurgerForRestaurant(int restaurantId, Burger burger);
+        public Task<Burger> AddBurgerForRestaurant(Guid restaurantId, Burger burger);
     }
 }

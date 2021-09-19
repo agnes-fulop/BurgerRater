@@ -10,6 +10,8 @@ namespace BurgerRaterApi.Mappers
         {
             CreateMap<RestaurantCreateDto, Restaurant>();
 
+            CreateMap<RestaurantUpdateDto, Restaurant>();
+
             CreateMap<Restaurant, RestaurantResponseDto>();
         }
     }

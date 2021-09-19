@@ -3,6 +3,7 @@ using BurgerRaterApi.Models;
 using BurgerRaterApi.Models.Dto.Burger;
 using BurgerRaterApi.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -23,7 +24,7 @@ namespace BurgerRaterApi.Controllers
 
         // GET: api/Restaurants/1/Burgers
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<BurgerResponseDto>>> GetBurgersForRestaurant([FromRoute] int restaurantId)
+        public async Task<ActionResult<IEnumerable<BurgerResponseDto>>> GetBurgersForRestaurant([FromRoute] Guid restaurantId)
         {
             var burgers = await _burgerService.GetAllBurgersForRestaurant(restaurantId);
 
@@ -34,7 +35,7 @@ namespace BurgerRaterApi.Controllers
 
         // POST: api/Restaurants/1/Burgers
         [HttpPost]
-        public async Task<ActionResult<BurgerResponseDto>> PostBurger([FromRoute] int restaurantId, [FromBody] BurgerCreateDto burgerDto)
+        public async Task<ActionResult<BurgerResponseDto>> PostBurger([FromRoute] Guid restaurantId, [FromBody] BurgerCreateDto burgerDto)
         {
             var burgerEntity = _mapper.Map<Burger>(burgerDto);
             var createdBurger = await _burgerService.AddBurgerForRestaurant(restaurantId, burgerEntity);

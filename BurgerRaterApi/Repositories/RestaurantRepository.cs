@@ -1,6 +1,7 @@
 ﻿using BurgerRaterApi.Data;
 using BurgerRaterApi.Models;
 using BurgerRaterApi.Repositories.Interfaces;
+using System;
 using System.Threading.Tasks;
 
 namespace BurgerRaterApi.Repositories
@@ -11,7 +12,7 @@ namespace BurgerRaterApi.Repositories
         {
         }
 
-        public async Task<Burger> AddBurgerForRestaurant(int restaurantId, Burger burger)
+        public async Task<Burger> AddBurgerForRestaurant(Guid restaurantId, Burger burger)
         {
             var restaurant = await GetById(restaurantId);
 
@@ -22,7 +23,7 @@ namespace BurgerRaterApi.Repositories
             return burger;
         }
 
-        public async Task<Review> AddReviewForRestaurant(int restaurantId, Review review)
+        public async Task<Review> AddReviewForRestaurant(Guid restaurantId, Review review)
         {
             var restaurant = await GetById(restaurantId);
 

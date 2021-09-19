@@ -3,7 +3,9 @@ using BurgerRaterApi.Models;
 using BurgerRaterApi.Models.Dto.Restaurant;
 using BurgerRaterApi.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace BurgerRaterApi.Controllers
@@ -23,28 +25,38 @@ namespace BurgerRaterApi.Controllers
 
         // GET: api/Restaurants
         [HttpGet]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(500)]
         public async Task<ActionResult<IEnumerable<RestaurantResponseDto>>> GetAllRestaurants()
         {
             var restaurants = await _restaurantService.GetAll();
 
             var restaurantResponse = _mapper.Map<IEnumerable<RestaurantResponseDto>>(restaurants);
 
-            return Ok(restaurantResponse);
+            return restaurantResponse.ToList();
         }
 
         // GET: api/Restaurants/5
         [HttpGet("{id}")]
-        public async Task<Restaurant> GetRestaurant(int id)
+        [ProducesResponseType(200)]
+        [ProducesResponseType(404)]
+        [ProducesResponseType(500)]
+        public async Task<ActionResult<RestaurantResponseDto>> GetRestaurant(Guid id)
         {
-            return await _restaurantService.GetById(id);
+            var restaurant = await _restaurantService.GetById(id);
+
+            return _mapper.Map<RestaurantResponseDto>(restaurant);
         }
 
         // PUT: api/Restaurants/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutRestaurant(int id, Restaurant restaurant)
+        [ProducesResponseType(204)]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(404)]
+        [ProducesResponseType(500)]
+        public async Task<IActionResult> PutRestaurant(Guid id, RestaurantUpdateDto updateDto)
         {
-            if (id != restaurant.Id)
+            if (id != updateDto.Id)
             {
                 return BadRequest();
             }
@@ -54,6 +66,8 @@ namespace BurgerRaterApi.Controllers
                 return NotFound();
             }
 
+            var restaurant = _mapper.Map<Restaurant>(updateDto);
+
             await _restaurantService.Update(restaurant);
 
             return NoContent();
@@ -61,6 +75,9 @@ namespace BurgerRaterApi.Controllers
 
         // POST: api/Restaurants
         [HttpPost]
+        [ProducesResponseType(201)]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(500)]
         public async Task<ActionResult<RestaurantResponseDto>> PostRestaurant(RestaurantCreateDto createDto)
         {
             var restaurant = _mapper.Map<Restaurant>(createDto);
@@ -73,7 +90,10 @@ namespace BurgerRaterApi.Controllers
 
         // DELETE: api/Restaurants/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteRestaurant(int id)
+        [ProducesResponseType(204)]
+        [ProducesResponseType(404)]
+        [ProducesResponseType(500)]
+        public async Task<IActionResult> DeleteRestaurant(Guid id)
         {
             await _restaurantService.Delete(id);
 

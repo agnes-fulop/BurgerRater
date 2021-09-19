@@ -4,6 +4,7 @@ using BurgerRaterApi.Models;
 using BurgerRaterApi.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -33,14 +34,14 @@ namespace BurgerRaterApi.Repositories
             await _context.SaveChangesAsync();
         }
 
-        public async Task Delete(int id)
+        public async Task Delete(Guid id)
         {
             var entity = await GetById(id);
 
             await Delete(entity);
         }
 
-        public async Task<bool> Exists(int id)
+        public async Task<bool> Exists(Guid id)
         {
             return await _entities.AnyAsync(entity => entity.Id == id);
         }
@@ -50,7 +51,7 @@ namespace BurgerRaterApi.Repositories
             return await _entities.ToListAsync();
         }
 
-        public async Task<T> GetById(int id)
+        public async Task<T> GetById(Guid id)
         {
             var entity = await _entities.FindAsync(id);
 

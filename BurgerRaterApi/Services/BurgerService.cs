@@ -1,6 +1,7 @@
 ﻿using BurgerRaterApi.Models;
 using BurgerRaterApi.Repositories.Interfaces;
 using BurgerRaterApi.Services.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -18,12 +19,12 @@ namespace BurgerRaterApi.Services
             _restaurantRepository = restaurantRepository;
         }
 
-        public async Task<Burger> AddBurgerForRestaurant(int restaurantId, Burger burger)
+        public async Task<Burger> AddBurgerForRestaurant(Guid restaurantId, Burger burger)
         {
             return await _restaurantRepository.AddBurgerForRestaurant(restaurantId, burger);
         }
 
-        public async Task<IEnumerable<Burger>> GetAllBurgersForRestaurant(int restaurantId)
+        public async Task<IEnumerable<Burger>> GetAllBurgersForRestaurant(Guid restaurantId)
         {
             var allBurgers = await _burgerRepository.GetAll();
 

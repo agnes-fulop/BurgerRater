@@ -1,4 +1,5 @@
 ﻿using BurgerRaterApi.Models;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -8,7 +9,7 @@ namespace BurgerRaterApi.Services.Interfaces
     {
         public Task<IEnumerable<Restaurant>> GetAll();
 
-        public Task<Restaurant> GetById(int id);
+        public Task<Restaurant> GetById(Guid id);
 
         public Task<Restaurant> Create(Restaurant restaurant);
 
@@ -16,8 +17,8 @@ namespace BurgerRaterApi.Services.Interfaces
 
         public Task Delete(Restaurant restaurant);
 
-        public Task Delete(int id);
+        public Task Delete(Guid id);
 
-        public Task<bool> Exists(int id);
+        public Task<bool> Exists(Guid id);
     }
 }

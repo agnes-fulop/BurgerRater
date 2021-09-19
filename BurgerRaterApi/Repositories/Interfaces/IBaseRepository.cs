@@ -1,4 +1,5 @@
 ﻿using BurgerRaterApi.Models;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -8,7 +9,7 @@ namespace BurgerRaterApi.Repositories.Interfaces
     {
         public Task<IEnumerable<T>> GetAll();
 
-        public Task<T> GetById(int id);
+        public Task<T> GetById(Guid id);
 
         public Task<T> Create(T entity);
 
@@ -16,8 +17,8 @@ namespace BurgerRaterApi.Repositories.Interfaces
 
         public Task Delete(T entity);
 
-        public Task Delete(int id);
+        public Task Delete(Guid id);
 
-        public Task<bool> Exists(int id);
+        public Task<bool> Exists(Guid id);
     }
 }

@@ -1,8 +1,10 @@
-﻿namespace BurgerRaterApi.Models.Dto.Restaurant
+﻿using System;
+
+namespace BurgerRaterApi.Models.Dto.Restaurant
 {
     public class RestaurantResponseDto
     {
-        public string Id { get; set; }
+        public Guid Id { get; set; }
 
         public string Name { get; set; }
 
