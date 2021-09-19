@@ -2,7 +2,9 @@
 using BurgerRaterApi.Models;
 using BurgerRaterApi.Models.Dto.Restaurant;
 using BurgerRaterApi.Services.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Identity.Web.Resource;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,12 +12,15 @@ using System.Threading.Tasks;
 
 namespace BurgerRaterApi.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class RestaurantsController : ControllerBase
     {
         private readonly IRestaurantService _restaurantService;
         private readonly IMapper _mapper;
+
+        static readonly string[] scopeRequiredByApi = new string[] { "access_as_user" };
 
         public RestaurantsController(IRestaurantService restaurantService, IMapper mapper)
         {
@@ -29,6 +34,8 @@ namespace BurgerRaterApi.Controllers
         [ProducesResponseType(500)]
         public async Task<ActionResult<IEnumerable<RestaurantResponseDto>>> GetAllRestaurants()
         {
+            HttpContext.VerifyUserHasAnyAcceptedScope(scopeRequiredByApi);
+
             var restaurants = await _restaurantService.GetAll();
 
             var restaurantResponse = _mapper.Map<IEnumerable<RestaurantResponseDto>>(restaurants);

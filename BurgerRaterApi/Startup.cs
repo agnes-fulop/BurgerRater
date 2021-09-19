@@ -28,6 +28,8 @@ namespace BurgerRaterApi
 {
     public class Startup
     {
+        readonly string MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
+
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -48,6 +50,15 @@ namespace BurgerRaterApi
 
                    options.TokenValidationParameters.NameClaimType = "name";
                },options => { Configuration.Bind("AzureAdB2C", options); });
+
+            services.AddCors(options =>
+            {
+                options.AddPolicy(name: MyAllowSpecificOrigins,
+                                  builder =>
+                                  {
+                                      builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod();
+                                  });
+            });
 
             services.AddControllers();
 
@@ -101,6 +112,8 @@ namespace BurgerRaterApi
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseCors(MyAllowSpecificOrigins);
 
             app.UseAuthentication();
             app.UseAuthorization();
