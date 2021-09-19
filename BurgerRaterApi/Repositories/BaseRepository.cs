@@ -3,6 +3,7 @@ using BurgerRaterApi.Infrastructure.Exceptions;
 using BurgerRaterApi.Models;
 using BurgerRaterApi.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using Serilog;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -55,6 +56,7 @@ namespace BurgerRaterApi.Repositories
 
             if (entity is null)
             {
+                Log.Error($"{typeof(T)} entity with Id {id} can't be found");
                 throw new NotFoundException("Entity doesn't exist.");
             }
 
