@@ -17,9 +17,6 @@ namespace BurgerRaterApi.Models
 
         public byte[] Image { get; set; }
 
-        [ForeignKey("Restaurant")]
-        public int RestaurantId { get; set; }
-
         public virtual Restaurant Restaurant { get; set; }
     }
 }

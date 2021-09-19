@@ -30,11 +30,8 @@ namespace BurgerRaterApi.Models
 
         public string ClosingTime { get; set; }
 
-        [ForeignKey("Menu")]
-        public int MenuId { get; set; }
+        public virtual ICollection<Burger> Burgers { get; set; } = new List<Burger>();
 
-        public virtual Menu Menu { get; set; }
-
-        public virtual ICollection<Review> Reviews { get; set; }
+        public virtual ICollection<Review> Reviews { get; set; } = new List<Review>();
     }
 }

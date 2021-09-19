@@ -8,6 +8,6 @@ namespace BurgerRaterApi.Services.Interfaces
     {
         public Task<IEnumerable<Review>> GetAllReviewsForRestaurant(int restaurantId);
 
-        public Task<Review> Create(Review review);
+        public Task<Review> AddReviewForRestaurant(int restaurantId, Review review);
     }
 }

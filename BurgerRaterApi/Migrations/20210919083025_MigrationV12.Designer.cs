@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BurgerRaterApi.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20210918155312_MigrationV4")]
-    partial class MigrationV4
+    [Migration("20210919083025_MigrationV12")]
+    partial class MigrationV12
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -34,38 +34,20 @@ namespace BurgerRaterApi.Migrations
                     b.Property<string>("Ingredients")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("MenuId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<double>("Price")
                         .HasColumnType("float");
 
-                    b.HasKey("Id");
-
-                    b.HasIndex("MenuId");
-
-                    b.ToTable("Burger");
-                });
-
-            modelBuilder.Entity("BurgerRaterApi.Models.Menu", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("RestaurantId")
+                    b.Property<int?>("RestaurantId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("RestaurantId")
-                        .IsUnique();
+                    b.HasIndex("RestaurantId");
 
-                    b.ToTable("Menu");
+                    b.ToTable("Burger");
                 });
 
             modelBuilder.Entity("BurgerRaterApi.Models.Restaurant", b =>
@@ -77,7 +59,8 @@ namespace BurgerRaterApi.Migrations
 
                     b.Property<string>("Address")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
 
                     b.Property<string>("City")
                         .IsRequired()
@@ -88,10 +71,8 @@ namespace BurgerRaterApi.Migrations
 
                     b.Property<string>("District")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("MenuId")
-                        .HasColumnType("int");
+                        .HasMaxLength(15)
+                        .HasColumnType("nvarchar(15)");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -121,7 +102,7 @@ namespace BurgerRaterApi.Migrations
                     b.Property<byte[]>("Image")
                         .HasColumnType("varbinary(max)");
 
-                    b.Property<int>("RestaurantId")
+                    b.Property<int?>("RestaurantId")
                         .HasColumnType("int");
 
                     b.Property<int>("TasteScore")
@@ -142,22 +123,9 @@ namespace BurgerRaterApi.Migrations
 
             modelBuilder.Entity("BurgerRaterApi.Models.Burger", b =>
                 {
-                    b.HasOne("BurgerRaterApi.Models.Menu", "Menu")
-                        .WithMany("Burgers")
-                        .HasForeignKey("MenuId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Menu");
-                });
-
-            modelBuilder.Entity("BurgerRaterApi.Models.Menu", b =>
-                {
                     b.HasOne("BurgerRaterApi.Models.Restaurant", "Restaurant")
-                        .WithOne("Menu")
-                        .HasForeignKey("BurgerRaterApi.Models.Menu", "RestaurantId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .WithMany("Burgers")
+                        .HasForeignKey("RestaurantId");
 
                     b.Navigation("Restaurant");
                 });
@@ -166,21 +134,14 @@ namespace BurgerRaterApi.Migrations
                 {
                     b.HasOne("BurgerRaterApi.Models.Restaurant", "Restaurant")
                         .WithMany("Reviews")
-                        .HasForeignKey("RestaurantId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("RestaurantId");
 
                     b.Navigation("Restaurant");
                 });
 
-            modelBuilder.Entity("BurgerRaterApi.Models.Menu", b =>
-                {
-                    b.Navigation("Burgers");
-                });
-
             modelBuilder.Entity("BurgerRaterApi.Models.Restaurant", b =>
                 {
-                    b.Navigation("Menu");
+                    b.Navigation("Burgers");
 
                     b.Navigation("Reviews");
                 });

@@ -54,13 +54,13 @@ namespace BurgerRaterApi
             var mappingConfig = new MapperConfiguration(mc => {
                 mc.AddProfile(new ReviewAutoMapperProfile());
                 mc.AddProfile(new RestaurantAutoMapperProfile());
-                mc.AddProfile(new MenuAutoMapperProfile());
                 mc.AddProfile(new BurgerAutoMapperProfile());
             });
             IMapper mapper = mappingConfig.CreateMapper();
             services.AddSingleton(mapper);
 
-            services.AddScoped(typeof(IBaseRepository<>), typeof(BaseRepository<>));
+            services.AddScoped(typeof(IRestaurantRepository), typeof(RestaurantRepository));
+            services.AddScoped(typeof(IReviewRepository), typeof(ReviewRepository));
             services.AddScoped(typeof(IRestaurantService), typeof(RestaurantService));
             services.AddScoped(typeof(IReviewService), typeof(ReviewService));
         }

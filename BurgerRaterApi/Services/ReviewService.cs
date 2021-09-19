@@ -1,7 +1,6 @@
 ﻿using BurgerRaterApi.Models;
 using BurgerRaterApi.Repositories.Interfaces;
 using BurgerRaterApi.Services.Interfaces;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -10,21 +9,23 @@ namespace BurgerRaterApi.Services
 {
     public class ReviewService : IReviewService
     {
-        private readonly IBaseRepository<Review> _reviewRepository;
+        private readonly IReviewRepository _reviewRepository;
+        private readonly IRestaurantRepository _restaurantRepository;
 
-        public ReviewService(IBaseRepository<Review> reviewRepository)
+        public ReviewService(IReviewRepository reviewRepository, IRestaurantRepository restaurantRepository)
         {
             _reviewRepository = reviewRepository;
+            _restaurantRepository = restaurantRepository;
         }
 
-        public async Task<Review> Create(Review review)
+        public async Task<Review> AddReviewForRestaurant(int restaurantId, Review review)
         {
-            return await _reviewRepository.Create(review);
+            return await _restaurantRepository.AddReviewForRestaurant(restaurantId, review);
         }
 
         public async Task<IEnumerable<Review>> GetAllReviewsForRestaurant(int restaurantId)
         {
-            return (await _reviewRepository.GetAll()).Where(r => r.RestaurantId == restaurantId);
+            return (await _reviewRepository.GetAll()).Where(r => r.Restaurant.Id == restaurantId);
         }
     }
 }

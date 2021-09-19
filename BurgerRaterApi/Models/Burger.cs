@@ -13,9 +13,6 @@ namespace BurgerRaterApi.Models
 
         public string Currency { get; set; }
 
-        [ForeignKey("Menu")]
-        public int MenuId { get; set; }
-
-        public virtual Menu Menu { get; set; }
+        public virtual Restaurant Restaurant { get; set; }
     }
 }

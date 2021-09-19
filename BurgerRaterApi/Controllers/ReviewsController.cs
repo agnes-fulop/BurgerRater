@@ -36,10 +36,8 @@ namespace BurgerRaterApi.Controllers
         [HttpPost]
         public async Task<ActionResult<ReviewResponseDto>> PostReview([FromRoute] int restaurantId, [FromBody]ReviewCreateDto reviewDto)
         {
-            var review = new Review { RestaurantId = restaurantId };
-
-            var reviewEntity = _mapper.Map(reviewDto, review);
-            var createdReview = await _reviewService.Create(reviewEntity);
+            var reviewEntity = _mapper.Map<Review>(reviewDto);
+            var createdReview = await _reviewService.AddReviewForRestaurant(restaurantId, reviewEntity);
 
             var reviewResponse = _mapper.Map<ReviewResponseDto>(createdReview);
 

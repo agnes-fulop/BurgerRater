@@ -1,6 +1,4 @@
-﻿using BurgerRaterApi.Models.Dto.Menu;
-
-namespace BurgerRaterApi.Models.Dto.Restaurant
+﻿namespace BurgerRaterApi.Models.Dto.Restaurant
 {
     public class RestaurantResponseDto
     {
@@ -20,6 +18,5 @@ namespace BurgerRaterApi.Models.Dto.Restaurant
 
         public string ClosingTime { get; set; }
 
-        public MenuResponseDto Menu { get; set; }
     }
 }

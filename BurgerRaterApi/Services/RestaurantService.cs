@@ -8,9 +8,9 @@ namespace BurgerRaterApi.Services
 {
     public class RestaurantService : IRestaurantService
     {
-        private readonly IBaseRepository<Restaurant> _restaurantRepository;
+        private readonly IRestaurantRepository _restaurantRepository;
 
-        public RestaurantService(IBaseRepository<Restaurant> restaurantRepository)
+        public RestaurantService(IRestaurantRepository restaurantRepository)
         {
             _restaurantRepository = restaurantRepository;
         }
