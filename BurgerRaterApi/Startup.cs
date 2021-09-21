@@ -97,6 +97,8 @@ namespace BurgerRaterApi
             services.AddScoped(typeof(IRestaurantService), typeof(RestaurantService));
             services.AddScoped(typeof(IReviewService), typeof(ReviewService));
             services.AddScoped(typeof(IBurgerService), typeof(BurgerService));
+
+            services.AddHealthChecks();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -125,6 +127,7 @@ namespace BurgerRaterApi
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+                endpoints.MapHealthChecks("/health");
             });
         }
 
