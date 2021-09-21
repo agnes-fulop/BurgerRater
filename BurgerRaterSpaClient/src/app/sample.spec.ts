@@ -40,10 +40,10 @@ describe('Ensure that the app starts', () => {
         expect(bootApplication).not.toThrow();
     });
 
-    it(`should have as title 'Microsoft identity platform'`, async () => {
+  it(`should have as title 'Burger Rater'`, async () => {
         const { fixture } = setup();
         const app = fixture.debugElement.componentInstance;
-        expect(app.title).toEqual('Microsoft identity platform');
+    expect(app.title).toEqual('Burger Rater');
     });
 
     it('should navigate to unguarded route', async () => {

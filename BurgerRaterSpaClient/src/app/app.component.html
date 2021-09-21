@@ -3,9 +3,8 @@
 
   <div class="toolbar-spacer"></div>
 
-  <a mat-button [routerLink]="['todo-view']">TodoList</a>
+  <a mat-button [routerLink]="['restaurant-view']">Restaurants</a>
   
-  <button mat-button *ngIf="loginDisplay" (click)="editProfile()">Edit Profile</button>
   <button mat-raised-button *ngIf="!loginDisplay" (click)="login()">Login</button>
   <button mat-raised-button color="accent" *ngIf="loginDisplay" (click)="logout()">Logout</button>
 </mat-toolbar>
@@ -15,9 +14,5 @@
 </div>
 
 <footer *ngIf="loginDisplay">
-  <mat-toolbar>
-    <div class="footer-text">
-      How did we do? <a href="https://forms.office.com/Pages/ResponsePage.aspx?id=v4j5cvGGr0GRqy180BHbR73pcsbpbxNJuZCMKN0lURpUOU5PNlM4MzRRV0lETkk2ODBPT0NBTEY5MCQlQCN0PWcu" target="_blank"> Share your experience with us!</a>
-    </div>
-  </mat-toolbar>
+
 </footer>

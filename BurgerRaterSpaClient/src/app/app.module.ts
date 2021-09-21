@@ -13,6 +13,8 @@ import { MatIconModule } from '@angular/material/icon'
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field'
 
+import { MatSelectModule } from '@angular/material/select';
+
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -26,6 +28,10 @@ import { IPublicClientApplication, PublicClientApplication, InteractionType } fr
 import { MsalGuard, MsalInterceptor, MsalBroadcastService, MsalInterceptorConfiguration, MsalModule, MsalService, MSAL_GUARD_CONFIG, MSAL_INSTANCE, MSAL_INTERCEPTOR_CONFIG, MsalGuardConfiguration, MsalRedirectComponent } from '@azure/msal-angular';
 
 import { msalConfig, loginRequest, protectedResources } from './auth-config';
+import { RestaurantService } from './services/restaurant.service';
+import { ReviewService } from './services/review.service';
+import { RestaurantViewComponent } from './restaurant-view/restaurant-view.component';
+import { ReviewPageComponent } from './review-page/review-page.component';
 
 /**
  * Here we pass the configuration parameters to create an MSAL instance.
@@ -44,7 +50,7 @@ export function MSALInstanceFactory(): IPublicClientApplication {
 export function MSALInterceptorConfigFactory(): MsalInterceptorConfiguration {
   const protectedResourceMap = new Map<string, Array<string>>();
 
-  protectedResourceMap.set(protectedResources.todoListApi.endpoint, protectedResources.todoListApi.scopes);
+  protectedResourceMap.set(protectedResources.burgerRaterApi.endpoint, protectedResources.burgerRaterApi.scopes);
 
   return {
     interactionType: InteractionType.Redirect,
@@ -68,7 +74,9 @@ export function MSALGuardConfigFactory(): MsalGuardConfiguration {
     AppComponent,
     HomeComponent,
     TodoViewComponent,
-    TodoEditComponent
+    TodoEditComponent,
+    RestaurantViewComponent,
+    ReviewPageComponent
   ],
   imports: [
     BrowserModule,
@@ -84,6 +92,7 @@ export function MSALGuardConfigFactory(): MsalGuardConfiguration {
     MatCheckboxModule,
     MatIconModule,
     HttpClientModule,
+    MatSelectModule,
     FormsModule,
     MsalModule
   ],
@@ -108,7 +117,9 @@ export function MSALGuardConfigFactory(): MsalGuardConfiguration {
     MsalService,
     MsalGuard,
     MsalBroadcastService,
-    TodoService
+    TodoService,
+    RestaurantService,
+    ReviewService
   ],
   bootstrap: [AppComponent, MsalRedirectComponent]
 })

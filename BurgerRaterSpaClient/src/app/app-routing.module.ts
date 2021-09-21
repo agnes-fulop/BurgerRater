@@ -5,6 +5,8 @@ import { MsalGuard } from '@azure/msal-angular';
 import { HomeComponent } from './home/home.component';
 import { TodoViewComponent } from './todo-view/todo-view.component';
 import { TodoEditComponent } from './todo-edit/todo-edit.component';
+import { RestaurantViewComponent } from './restaurant-view/restaurant-view.component';
+import { ReviewPageComponent } from './review-page/review-page.component';
 
 /**
  * MSAL Angular can protect routes in your application
@@ -22,6 +24,20 @@ const routes: Routes = [
   {
     path: 'todo-view',
     component: TodoViewComponent,
+    canActivate: [
+      MsalGuard
+    ]
+  },
+  {
+    path: 'restaurant-view',
+    component: RestaurantViewComponent,
+    canActivate: [
+      MsalGuard
+    ]
+  },
+  {
+    path: 'review-page/:id',
+    component: ReviewPageComponent,
     canActivate: [
       MsalGuard
     ]

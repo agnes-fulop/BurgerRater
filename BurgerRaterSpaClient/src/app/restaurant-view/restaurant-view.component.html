@@ -1,0 +1,30 @@
+<main class="cards">
+		<mat-card class="card" *ngFor="let restaurant of restaurants; let i = index">
+			<mat-card-header>
+				<div mat-card-avatar class="example-header-image"></div>
+				<mat-card-title>{{restaurant.name}}</mat-card-title>
+				<mat-card-subtitle>{{restaurant.city}}</mat-card-subtitle>
+			</mat-card-header>
+			<img mat-card-image src="assets/restaurant-image.jpg" alt="Restaurant Icon">
+			<mat-card-content>
+				<div class="restaurant-detail">
+					<div class="my-label">Address: </div>
+					<div>{{restaurant.address}}</div>
+				</div>
+
+				<div class="restaurant-detail">
+					<div class="my-label">Zip Code: </div>
+					<div>{{restaurant.zipCode}}</div>
+				</div>
+
+				<div class="restaurant-detail">
+					<div class="my-label">Open: </div>
+					<div>Mon - Sun: {{restaurant.openingTime}} - {{restaurant.closingTime}}</div>
+				</div>
+
+			</mat-card-content>
+			<mat-card-actions>
+				<button mat-button [routerLink]="['/review-page', restaurant.id]">View restaurant reviews</button>
+			</mat-card-actions>
+		</mat-card>
+	</main>

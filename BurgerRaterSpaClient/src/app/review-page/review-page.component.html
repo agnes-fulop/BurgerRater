@@ -1,0 +1,92 @@
+<div id="layoutContainer" ng-controller="layoutController as ctrl" ng-cloak>
+	<div layout="row" layout-xs="column">
+		<div flex="100" class="green box">
+			<div class="cards">
+				<mat-card class="card" *ngFor="let review of reviews; let i = index">
+					<mat-card-content>
+						<div class="restaurant-detail">
+							<div class="my-label">Taste: </div>
+							<div>{{review.tasteScore}}</div>
+						</div>
+
+						<div class="restaurant-detail">
+							<div class="my-label">Texture: </div>
+							<div>{{review.textureScore}}</div>
+						</div>
+
+						<div class="restaurant-detail">
+							<div class="my-label">Visual presentation: </div>
+							<div>{{review.visualPresentationScore}}</div>
+						</div>
+
+					</mat-card-content>
+				</mat-card>
+				</div>
+		</div>
+		<div flex="100" class="blue box">
+			<form #add="ngForm" (ngSubmit)="addReview()">
+				<h2>Add new review</h2>
+				<mat-form-field appearance="fill"  name="tasteScore" ngDefaultControl [(ngModel)]="tasteScore">
+					<mat-label>Taste</mat-label>
+					<mat-select>
+						<mat-option value="a">1</mat-option>
+						<mat-option value="b">2</mat-option>
+						<mat-option value="c">3</mat-option>
+						<mat-option value="d">4</mat-option>
+						<mat-option value="e">5</mat-option>
+						<mat-option value="a">6</mat-option>
+						<mat-option value="b">7</mat-option>
+						<mat-option value="c">8</mat-option>
+						<mat-option value="d">9</mat-option>
+						<mat-option value="e">10</mat-option>
+					</mat-select>
+				</mat-form-field>
+				<mat-form-field appearance="fill" name="textureScore" ngDefaultControl [(ngModel)]="textureScore">
+					<mat-label>Texture</mat-label>
+					<mat-select>
+						<mat-option value="a">1</mat-option>
+						<mat-option value="b">2</mat-option>
+						<mat-option value="c">3</mat-option>
+						<mat-option value="d">4</mat-option>
+						<mat-option value="e">5</mat-option>
+						<mat-option value="a">6</mat-option>
+						<mat-option value="b">7</mat-option>
+						<mat-option value="c">8</mat-option>
+						<mat-option value="d">9</mat-option>
+						<mat-option value="e">10</mat-option>
+					</mat-select>
+				</mat-form-field>
+				<mat-form-field appearance="fill" name="visualPresentation"  ngDefaultControl [(ngModel)]="visualPresentation">
+					<mat-label>Visual representation</mat-label>
+					<mat-select>
+						<mat-option value="a">1</mat-option>
+						<mat-option value="b">2</mat-option>
+						<mat-option value="c">3</mat-option>
+						<mat-option value="d">4</mat-option>
+						<mat-option value="e">5</mat-option>
+						<mat-option value="a">6</mat-option>
+						<mat-option value="b">7</mat-option>
+						<mat-option value="c">8</mat-option>
+						<mat-option value="d">9</mat-option>
+						<mat-option value="e">10</mat-option>
+					</mat-select>
+				</mat-form-field>
+				<button mat-raised-button id="submit-button" color="primary" type="submit" value="submit">Add</button>
+			</form>
+		</div>
+	</div>
+</div>
+
+
+
+		
+
+		
+
+
+
+		<!--<button mat-fab color="primary" aria-label="Example icon button with a delete icon">
+			<mat-icon>add</mat-icon>
+		</button>-->
+	
+

@@ -3,13 +3,13 @@ import { HttpClient } from '@angular/common/http';
 import { Todo } from './todo';
 
 import { protectedResources } from './auth-config';
-import { Restaurant } from './restaurant';
+import { Restaurant } from './models/restaurant';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TodoService {
-  url = protectedResources.todoListApi.endpoint;
+  url = protectedResources.burgerRaterApi.endpoint;
 
   constructor(private http: HttpClient) { }
 

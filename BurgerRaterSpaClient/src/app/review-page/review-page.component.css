@@ -1,0 +1,47 @@
+table {
+    min-width: 100px;
+    width: 100%;
+}
+
+.form-field {
+    min-width: 100px;
+    width: 90%;
+}
+  
+.input-field {
+    width: 90%;
+}
+
+.card-section {
+    margin-top: 5%;
+}
+
+#submit-button {
+    margin-left: 1%;
+}
+
+.material-icons:hover {
+    color: orange !important;
+    cursor: pointer
+}
+
+.cards {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.card {
+  flex: 0 0 200px;
+  margin: 10px;
+  border: 1px solid #ccc;
+  box-shadow: 2px 2px 6px 0px rgba(0,0,0,0.3);
+}
+
+.my-label {
+    font-weight: 600;
+}
+
+.restaurant-detail {
+    margin-bottom: 10px;
+}

@@ -3,7 +3,7 @@ import { NgForm } from '@angular/forms';
 
 import { TodoService } from './../todo.service';
 import { Todo } from '../todo';
-import { Restaurant } from '../restaurant';
+import { Restaurant } from '../models/restaurant';
 
 @Component({
   selector: 'app-todo-view',

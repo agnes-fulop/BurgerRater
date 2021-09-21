@@ -7,5 +7,4 @@ export interface Restaurant {
   city: string;
   openingTime: string;
   closingTime: string;
-
 }

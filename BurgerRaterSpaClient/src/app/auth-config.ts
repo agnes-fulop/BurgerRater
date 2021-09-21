@@ -63,8 +63,8 @@
  * https://github.com/AzureAD/microsoft-authentication-library-for-js/blob/dev/lib/msal-browser/docs/resources-and-scopes.md
  */
 export const protectedResources = {
-  todoListApi: {
-    endpoint: "https://localhost:44337/api/Restaurants",
+  burgerRaterApi: {
+    endpoint: "https://localhost:44337/api/",
     scopes: ["https://burgerrater.onmicrosoft.com/67d6e3ac-cb03-4f02-bb07-642cbd5c77b0/access_as_user"],
   },
 }
