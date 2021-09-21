@@ -5,11 +5,9 @@ VisualStudioVersion = 16.0.31702.278
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BurgerRaterApi", "BurgerRaterApi\BurgerRaterApi.csproj", "{2F1F6D94-6CF7-435C-958A-F30C9EE13281}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BurgerRaterClient", "BurgerRaterClient\BurgerRaterClient.csproj", "{A9C02691-78F1-45EA-ADB3-D22EB395C886}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BurgerRaterApi.Tests", "BurgerRaterApi.Tests\BurgerRaterApi.Tests.csproj", "{F06430EA-3F83-4781-8305-22C337989CE2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BurgerRaterApi.IntegrationTests", "BurgerRaterApi.IntegrationTests\BurgerRaterApi.IntegrationTests.csproj", "{A6522D10-CA8F-4F09-892C-0CD2F8F240BC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BurgerRaterApi.IntegrationTests", "BurgerRaterApi.IntegrationTests\BurgerRaterApi.IntegrationTests.csproj", "{A6522D10-CA8F-4F09-892C-0CD2F8F240BC}"
 EndProject
 Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "BurgerRaterSpaClient", "BurgerRaterSpaClient\", "{354974B5-2F7B-4F0F-82DC-13E6FA46DA39}"
 	ProjectSection(WebsiteProperties) = preProject
@@ -42,10 +40,6 @@ Global
 		{2F1F6D94-6CF7-435C-958A-F30C9EE13281}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2F1F6D94-6CF7-435C-958A-F30C9EE13281}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2F1F6D94-6CF7-435C-958A-F30C9EE13281}.Release|Any CPU.Build.0 = Release|Any CPU
-		{A9C02691-78F1-45EA-ADB3-D22EB395C886}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A9C02691-78F1-45EA-ADB3-D22EB395C886}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A9C02691-78F1-45EA-ADB3-D22EB395C886}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A9C02691-78F1-45EA-ADB3-D22EB395C886}.Release|Any CPU.Build.0 = Release|Any CPU
 		{F06430EA-3F83-4781-8305-22C337989CE2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{F06430EA-3F83-4781-8305-22C337989CE2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F06430EA-3F83-4781-8305-22C337989CE2}.Release|Any CPU.ActiveCfg = Release|Any CPU
