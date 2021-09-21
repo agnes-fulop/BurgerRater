@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { NgForm } from '@angular/forms';
+import { FormBuilder, NgForm } from '@angular/forms';
+import { MatOption } from '@angular/material/core';
+import { MatSelectChange } from '@angular/material/select/select';
+
 import { ActivatedRoute, Router } from '@angular/router';
 import { Review } from '../models/review';
 import { ReviewService } from '../services/review.service';
@@ -20,7 +23,9 @@ export class ReviewPageComponent implements OnInit {
 
   private restaurantId = '';
 
-  constructor(private route: ActivatedRoute, private router: Router, private service: ReviewService) { }
+  constructor(private route: ActivatedRoute, 
+    private service: ReviewService, 
+    private formBuilder: FormBuilder) { }
 
   ngOnInit(): void {
     this.route.paramMap.subscribe((params) => {
@@ -37,9 +42,39 @@ export class ReviewPageComponent implements OnInit {
       });
   }
 
-  addReview(): void {
+  selectedTaste(event: MatSelectChange) {
+    const selectedData = {
+      text: (event.source.selected as MatOption).viewValue,
+      value: event.source.value
+    };
+
+    this.tasteScore = selectedData.value;
+    console.log(selectedData);
+  }
+
+  selectedTexture(event: MatSelectChange) {
+    const selectedData = {
+      text: (event.source.selected as MatOption).viewValue,
+      value: event.source.value
+    };
+
+    this.textureScore = selectedData.value;
+    console.log(selectedData);
+  }
+
+  selectedvisualPresentation(event: MatSelectChange) {
+    const selectedData = {
+      text: (event.source.selected as MatOption).viewValue,
+      value: event.source.value
+    };
+
+    this.visualPresentation = selectedData.value;
+    console.log(selectedData);
+  }
+
+  onSubmit(): void {
     let review = { tasteScore: this.tasteScore, textureScore: this.textureScore, visualPresentationScore: this.visualPresentation } as Review;
 
-    this.service.postReview(this.restaurantId, review);
+    this.service.postReview(this.restaurantId, review).subscribe();
   }
 }

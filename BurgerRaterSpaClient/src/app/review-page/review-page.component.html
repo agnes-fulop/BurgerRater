@@ -24,54 +24,54 @@
 				</div>
 		</div>
 		<div flex="100" class="blue box">
-			<form #add="ngForm" (ngSubmit)="addReview()">
+			<form>
 				<h2>Add new review</h2>
-				<mat-form-field appearance="fill"  name="tasteScore" ngDefaultControl [(ngModel)]="tasteScore">
+				<mat-form-field appearance="fill">
 					<mat-label>Taste</mat-label>
-					<mat-select>
-						<mat-option value="a">1</mat-option>
-						<mat-option value="b">2</mat-option>
-						<mat-option value="c">3</mat-option>
-						<mat-option value="d">4</mat-option>
-						<mat-option value="e">5</mat-option>
-						<mat-option value="a">6</mat-option>
-						<mat-option value="b">7</mat-option>
-						<mat-option value="c">8</mat-option>
-						<mat-option value="d">9</mat-option>
-						<mat-option value="e">10</mat-option>
+					<mat-select [(ngModel)]="tasteScore" name="tasteScore">
+						<mat-option value="1">1</mat-option>
+						<mat-option value="2">2</mat-option>
+						<mat-option value="3">3</mat-option>
+						<mat-option value="4">4</mat-option>
+						<mat-option value="5">5</mat-option>
+						<mat-option value="6">6</mat-option>
+						<mat-option value="7">7</mat-option>
+						<mat-option value="8">8</mat-option>
+						<mat-option value="9">9</mat-option>
+						<mat-option value="10">10</mat-option>
 					</mat-select>
 				</mat-form-field>
-				<mat-form-field appearance="fill" name="textureScore" ngDefaultControl [(ngModel)]="textureScore">
+				<mat-form-field appearance="fill" >
 					<mat-label>Texture</mat-label>
-					<mat-select>
-						<mat-option value="a">1</mat-option>
-						<mat-option value="b">2</mat-option>
-						<mat-option value="c">3</mat-option>
-						<mat-option value="d">4</mat-option>
-						<mat-option value="e">5</mat-option>
-						<mat-option value="a">6</mat-option>
-						<mat-option value="b">7</mat-option>
-						<mat-option value="c">8</mat-option>
-						<mat-option value="d">9</mat-option>
-						<mat-option value="e">10</mat-option>
+					<mat-select [(ngModel)]="textureScore" name="textureScore">
+						<mat-option value="1">1</mat-option>
+						<mat-option value="2">2</mat-option>
+						<mat-option value="3">3</mat-option>
+						<mat-option value="4">4</mat-option>
+						<mat-option value="5">5</mat-option>
+						<mat-option value="6">6</mat-option>
+						<mat-option value="7">7</mat-option>
+						<mat-option value="8">8</mat-option>
+						<mat-option value="9">9</mat-option>
+						<mat-option value="10">10</mat-option>
 					</mat-select>
 				</mat-form-field>
-				<mat-form-field appearance="fill" name="visualPresentation"  ngDefaultControl [(ngModel)]="visualPresentation">
+				<mat-form-field appearance="fill" >
 					<mat-label>Visual representation</mat-label>
-					<mat-select>
-						<mat-option value="a">1</mat-option>
-						<mat-option value="b">2</mat-option>
-						<mat-option value="c">3</mat-option>
-						<mat-option value="d">4</mat-option>
-						<mat-option value="e">5</mat-option>
-						<mat-option value="a">6</mat-option>
-						<mat-option value="b">7</mat-option>
-						<mat-option value="c">8</mat-option>
-						<mat-option value="d">9</mat-option>
-						<mat-option value="e">10</mat-option>
+					<mat-select [(ngModel)]="visualPresentation" name="visualPresentation">
+						<mat-option value="1">1</mat-option>
+						<mat-option value="2">2</mat-option>
+						<mat-option value="3">3</mat-option>
+						<mat-option value="4">4</mat-option>
+						<mat-option value="5">5</mat-option>
+						<mat-option value="6">6</mat-option>
+						<mat-option value="7">7</mat-option>
+						<mat-option value="8">8</mat-option>
+						<mat-option value="9">9</mat-option>
+						<mat-option value="10">10</mat-option>
 					</mat-select>
 				</mat-form-field>
-				<button mat-raised-button id="submit-button" color="primary" type="submit" value="submit">Add</button>
+				<button mat-raised-button id="submit-button" (click)="onSubmit()" color="primary" type="submit" value="submit">Add</button>
 			</form>
 		</div>
 	</div>
