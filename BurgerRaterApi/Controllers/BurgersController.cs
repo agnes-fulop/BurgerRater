@@ -2,15 +2,19 @@
 using BurgerRaterApi.Models;
 using BurgerRaterApi.Models.Dto.Burger;
 using BurgerRaterApi.Services.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Identity.Web.Resource;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace BurgerRaterApi.Controllers
 {
+    [Authorize]
     [Route("api/Restaurants/{restaurantId}/[controller]")]
     [ApiController]
+    [RequiredScope(RequiredScopesConfigurationKey = "AuthSettings:AllowedScope")]
     public class BurgersController : ControllerBase
     {
         private readonly IBurgerService _burgerService;
@@ -24,6 +28,9 @@ namespace BurgerRaterApi.Controllers
 
         // GET: api/Restaurants/1/Burgers
         [HttpGet]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(401)]
+        [ProducesResponseType(500)]
         public async Task<ActionResult<IEnumerable<BurgerResponseDto>>> GetBurgersForRestaurant([FromRoute] Guid restaurantId)
         {
             var burgers = await _burgerService.GetAllBurgersForRestaurant(restaurantId);
@@ -35,6 +42,11 @@ namespace BurgerRaterApi.Controllers
 
         // POST: api/Restaurants/1/Burgers
         [HttpPost]
+        [ProducesResponseType(204)]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(401)]
+        [ProducesResponseType(404)]
+        [ProducesResponseType(500)]
         public async Task<ActionResult<BurgerResponseDto>> PostBurger([FromRoute] Guid restaurantId, [FromBody] BurgerCreateDto burgerDto)
         {
             var burgerEntity = _mapper.Map<Burger>(burgerDto);

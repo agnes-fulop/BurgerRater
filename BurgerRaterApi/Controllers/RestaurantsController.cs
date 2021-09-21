@@ -15,12 +15,11 @@ namespace BurgerRaterApi.Controllers
     [Authorize]
     [Route("api/[controller]")]
     [ApiController]
+    [RequiredScope(RequiredScopesConfigurationKey = "AuthSettings:AllowedScope")]
     public class RestaurantsController : ControllerBase
     {
         private readonly IRestaurantService _restaurantService;
         private readonly IMapper _mapper;
-
-        static readonly string[] scopeRequiredByApi = new string[] { "access_as_user" };
 
         public RestaurantsController(IRestaurantService restaurantService, IMapper mapper)
         {
@@ -31,11 +30,10 @@ namespace BurgerRaterApi.Controllers
         // GET: api/Restaurants
         [HttpGet]
         [ProducesResponseType(200)]
+        [ProducesResponseType(401)]
         [ProducesResponseType(500)]
         public async Task<ActionResult<IEnumerable<RestaurantResponseDto>>> GetAllRestaurants()
         {
-            HttpContext.VerifyUserHasAnyAcceptedScope(scopeRequiredByApi);
-
             var restaurants = await _restaurantService.GetAll();
 
             var restaurantResponse = _mapper.Map<IEnumerable<RestaurantResponseDto>>(restaurants);
@@ -46,6 +44,7 @@ namespace BurgerRaterApi.Controllers
         // GET: api/Restaurants/5
         [HttpGet("{id}")]
         [ProducesResponseType(200)]
+        [ProducesResponseType(401)]
         [ProducesResponseType(404)]
         [ProducesResponseType(500)]
         public async Task<ActionResult<RestaurantResponseDto>> GetRestaurant(Guid id)
@@ -59,6 +58,7 @@ namespace BurgerRaterApi.Controllers
         [HttpPut("{id}")]
         [ProducesResponseType(204)]
         [ProducesResponseType(400)]
+        [ProducesResponseType(401)]
         [ProducesResponseType(404)]
         [ProducesResponseType(500)]
         public async Task<IActionResult> PutRestaurant(Guid id, RestaurantUpdateDto updateDto)
@@ -84,6 +84,7 @@ namespace BurgerRaterApi.Controllers
         [HttpPost]
         [ProducesResponseType(201)]
         [ProducesResponseType(400)]
+        [ProducesResponseType(401)]
         [ProducesResponseType(500)]
         public async Task<ActionResult<RestaurantResponseDto>> PostRestaurant(RestaurantCreateDto createDto)
         {
@@ -98,6 +99,7 @@ namespace BurgerRaterApi.Controllers
         // DELETE: api/Restaurants/5
         [HttpDelete("{id}")]
         [ProducesResponseType(204)]
+        [ProducesResponseType(401)]
         [ProducesResponseType(404)]
         [ProducesResponseType(500)]
         public async Task<IActionResult> DeleteRestaurant(Guid id)
