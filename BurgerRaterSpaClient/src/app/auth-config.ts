@@ -64,6 +64,7 @@
  */
 export const protectedResources = {
   burgerRaterApi: {
+    //endpoint: "https://localhost:44337/api/",
     endpoint: "https://burger-rater-api.azurewebsites.net/api/",
     scopes: ["https://burgerrater.onmicrosoft.com/67d6e3ac-cb03-4f02-bb07-642cbd5c77b0/access_as_user"],
   },

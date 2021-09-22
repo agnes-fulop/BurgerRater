@@ -74,6 +74,8 @@
 				<button mat-raised-button id="submit-button" (click)="onSubmit()" color="primary" type="submit" value="submit">Add</button>
 			</form>
 		</div>
+
+		<div *ngIf="displaySuccess">Review added successfully!</div>
 	</div>
 </div>
 

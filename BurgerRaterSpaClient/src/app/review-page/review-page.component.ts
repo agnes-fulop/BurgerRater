@@ -1,9 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, NgForm } from '@angular/forms';
 import { MatOption } from '@angular/material/core';
 import { MatSelectChange } from '@angular/material/select/select';
 
 import { ActivatedRoute, Router } from '@angular/router';
+import { takeUntil } from 'rxjs/internal/operators/takeUntil';
+import { Subject } from 'rxjs/internal/Subject';
+import { Subscription } from 'rxjs/internal/Subscription';
 import { Review } from '../models/review';
 import { ReviewService } from '../services/review.service';
 
@@ -13,13 +16,16 @@ import { ReviewService } from '../services/review.service';
   templateUrl: './review-page.component.html',
   styleUrls: ['./review-page.component.css']
 })
-export class ReviewPageComponent implements OnInit {
+export class ReviewPageComponent implements OnInit, OnDestroy  {
 
   reviews: Review[] = [];
 
   tasteScore = 0;
   textureScore = 0;
   visualPresentation = 0;
+  displaySuccess = false;
+
+  notifier = new Subject();
 
   private restaurantId = '';
 
@@ -28,7 +34,9 @@ export class ReviewPageComponent implements OnInit {
     private formBuilder: FormBuilder) { }
 
   ngOnInit(): void {
-    this.route.paramMap.subscribe((params) => {
+    this.route.paramMap
+      .pipe(takeUntil(this.notifier))
+      .subscribe((params) => {
       this.restaurantId = params.get('id')!;
       this.getReviews(this.restaurantId);
     })
@@ -37,6 +45,7 @@ export class ReviewPageComponent implements OnInit {
 
   getReviews(restaurantId: string): void {
     this.service.getReviewsForRestaurant(restaurantId)
+      .pipe(takeUntil(this.notifier))
       .subscribe((reviews: Review[]) => {
         this.reviews = reviews;
       });
@@ -75,6 +84,13 @@ export class ReviewPageComponent implements OnInit {
   onSubmit(): void {
     let review = { tasteScore: this.tasteScore, textureScore: this.textureScore, visualPresentationScore: this.visualPresentation } as Review;
 
-    this.service.postReview(this.restaurantId, review).subscribe();
+    this.service.postReview(this.restaurantId, review)
+      .pipe(takeUntil(this.notifier))
+      .subscribe(() => this.displaySuccess = true);
+  }
+
+  ngOnDestroy() {
+    this.notifier.next()
+    this.notifier.complete()
   }
 }
